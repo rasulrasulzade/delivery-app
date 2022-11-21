@@ -1,2 +1,13 @@
-package com.company.orderms.dto;public class ErrorResponse {
+package com.company.orderms.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ErrorResponse {
+    private String message;
 }
+

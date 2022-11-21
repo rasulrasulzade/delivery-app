@@ -1,27 +1,26 @@
 package com.company.orderms.service.impl;
 
 import com.company.orderms.dto.OrderDto;
+import com.company.orderms.dto.QueueOrderDto;
+import com.company.orderms.dto.UpdateDtoRequest;
+import com.company.orderms.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QueueListener {
-    public static final String QUEUE = "queue_1";
-    public static final String EXCHANGE = "exchange_1";
-    public static final String ROUTING_KEY = "routing_key_1";
+@RequiredArgsConstructor
+public class QueueConsumer {
+    private final OrderService orderService;
+    public static final String QUEUE = "order_queue";
+    public static final String EXCHANGE = "order_exchange";
+    public static final String ROUTING_KEY = "order_key";
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-
-//    public void insertOrder(OrderDto dto) {
-//        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, dto);
-//    }
-////
     @RabbitListener(queues = QUEUE)
-    public OrderDto getOrder(OrderDto orderDto) {
-        System.out.println("Message received from queue: " + orderDto);
-        return orderDto;
+    public OrderDto getOrder(QueueOrderDto dto) {
+        System.out.println("Message received from queue: " + dto);
+        UpdateDtoRequest updateDtoRequest = UpdateDtoRequest.builder()
+                .status(dto.getStatus()).courierId(dto.getCourierId()).build();
+        return orderService.updateOrder(dto.getId(), updateDtoRequest);
     }
 }

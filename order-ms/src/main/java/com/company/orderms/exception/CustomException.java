@@ -1,4 +1,4 @@
-package com.company.orderms.controller.exception;
+package com.company.orderms.exception;
 
 import org.springframework.http.HttpStatus;
 

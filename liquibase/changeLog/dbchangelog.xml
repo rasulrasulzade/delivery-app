@@ -14,5 +14,11 @@
             CREATE SCHEMA delivery_app
         </sql>
     </changeSet>
+
+    <changeSet id="2022-11-21--sql-02" author="Rasul">
+        <sql>
+            CREATE SCHEMA order_schema
+        </sql>
+    </changeSet>
 </databaseChangeLog>
 
