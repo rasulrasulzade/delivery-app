@@ -52,8 +52,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderListDto getOrders(Optional<UUID> userId, Optional<UUID> courierId, Optional<Integer> page, Optional<Integer> pageSize, Optional<String> direction, Optional<String> sortBy) {
         Sort.Direction sortOrder = direction.map(d -> {
-            if (d.equals("ASC") || d.equals("DESC"))
-                return Sort.Direction.valueOf(d);
+            if (d.equals("DESC")) return Sort.Direction.DESC;
             else return Sort.Direction.ASC;
         }).orElse(Sort.Direction.ASC);
         PageRequest pageRequest = PageRequest.of(page.orElse(0), pageSize.orElse(10), sortOrder, sortBy.orElse("id"));
@@ -62,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
         Page<OrderEntity> pageData = orderRepository.findByUserIdAndCourierId(userIdStr, courierIdStr, pageRequest);
         return OrderListDto.builder()
                 .orders(mapStruct.mapToDtoList(pageData.getContent()))
-                .page(pageData.getSize())
+                .page(pageData.getNumber())
                 .pageSize(pageData.getSize())
                 .isLast(pageData.isLast())
                 .totalCount(pageData.getTotalElements())
