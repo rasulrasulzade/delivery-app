@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: admin-ms
+    name: user-ms
 
 eureka:
   client:
