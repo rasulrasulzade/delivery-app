@@ -9,16 +9,23 @@
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
 
-    <changeSet id="2022-11-20--sql-01" author="Rasul">
+    <changeSet id="2022-11-24--sql-01" author="Rasul">
+        <sql>CREATE EXTENSION IF NOT EXISTS "uuid-ossp"</sql>
+    </changeSet>
+
+    <changeSet id="2022-11-24--sql-02" author="Rasul">
         <sql>
             CREATE SCHEMA delivery_app
         </sql>
     </changeSet>
 
-    <changeSet id="2022-11-21--sql-02" author="Rasul">
+    <changeSet id="2022-11-24--sql-03" author="Rasul">
         <sql>
             CREATE SCHEMA order_schema
         </sql>
     </changeSet>
+
+    <include file="auth-scripts.xml"/>
+
 </databaseChangeLog>
 

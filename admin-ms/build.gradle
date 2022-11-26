@@ -29,6 +29,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation group: 'org.springframework.amqp', name: 'spring-rabbit', version: '2.4.7'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 dependencyManagement {

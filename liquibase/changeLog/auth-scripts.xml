@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="2022-11-24--sql-01" author="Rasul">
+        <sql>
+            CREATE SCHEMA auth
+        </sql>
+    </changeSet>
+
+    <changeSet id="2022-11-24--sql-02" author="Rasul">
+        <createTable schemaName="auth"
+                     tableName="user">
+            <column name="id" type="UUID">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="2022-11-24--sql-03" author="Rasul">
+        <addPrimaryKey columnNames="id"
+                       constraintName="pk_user"
+                       schemaName="auth"
+                       tableName="user"/>
+    </changeSet>
+
+    <changeSet id="2022-11-25--sql-04" author="Rasul">
+
+        <createTable schemaName="auth"
+                     tableName="role">
+            <column name="id" type="UUID">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-11-24--sql-05" author="Rasul">
+        <addPrimaryKey columnNames="id"
+                       constraintName="pk_role"
+                       schemaName="auth"
+                       tableName="role"/>
+    </changeSet>
+
+    <changeSet id="2022-11-26--sql-06" author="Rasul">
+        <createTable schemaName="auth"
+                     tableName="user_role">
+            <column name="user_id" type="UUID">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="role_id" type="UUID">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-11-26--sql-07" author="Rasul">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_role"
+                                 baseTableSchemaName="auth"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"
+                                 referencedTableSchemaName="auth"/>
+
+    </changeSet>
+
+    <changeSet id="2022-11-26--sql-08" author="Rasul">
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="user_role"
+                                 baseTableSchemaName="auth"
+                                 constraintName="fk_role_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="role"
+                                 referencedTableSchemaName="auth"/>
+
+    </changeSet>
+
+    <changeSet id="2022-11-26--sql-09" author="Rasul">
+        <sqlFile dbms="postgresql"
+                 encoding="UTF-8"
+                 endDelimiter="\nGO"
+                 path="2022-11-26--insert-role.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+    </changeSet>
+
+</databaseChangeLog>
+

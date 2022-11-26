@@ -1,6 +1,11 @@
+server:
+  port: ${PORT:0}
+  servlet:
+    context-path: /api/auth
+
 spring:
   application:
-    name: order-ms
+    name: auth-ms
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:postgres}
     username: ${POSTGRES_USER:user}
@@ -11,14 +16,9 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: com.company.orderms.config.CustomPostgreSQLDialect
-        default_schema: order_schema
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        default_schema: auth
         show_sql: true
-
-server:
-  port: ${PORT:0}
-  servlet:
-    context-path: /api/order
 
 eureka:
   client:
@@ -26,3 +26,8 @@ eureka:
       defaultZone: http://localhost:8010/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+token:
+  secret: Chucky
+  access-token-expiration-time: 600000
+  refresh-token-expiration-time: 15552000000
