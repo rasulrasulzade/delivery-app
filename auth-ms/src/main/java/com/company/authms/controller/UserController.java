@@ -1,8 +1,6 @@
 package com.company.authms.controller;
 
-import com.company.authms.model.AuthResponse;
-import com.company.authms.model.LoginRequest;
-import com.company.authms.model.RegisterRequest;
+import com.company.authms.model.*;
 import com.company.authms.service.UserService;
 import com.company.authms.util.HttpUtil;
 import com.company.authms.util.JwtUtil;
@@ -39,5 +37,10 @@ public class UserController {
         String accessToken = jwtUtil.generateAccessTokenFromHeader(request.getHeader("X-refresh-token"));
         response.setHeader(HttpHeaders.AUTHORIZATION, accessToken);
         httpUtil.printResponse(response, new HashMap<>(), HttpServletResponse.SC_OK);
+    }
+
+    @PostMapping("/roles")
+    public ResponseEntity<UserInfo> addRole(@RequestBody AddRoleRequest request) {
+        return ResponseEntity.ok(userService.addRole(request));
     }
 }
