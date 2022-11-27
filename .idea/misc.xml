@@ -4,6 +4,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/admin-ms" />
     <file type="web" url="file://$PROJECT_DIR$/auth-ms" />
+    <file type="web" url="file://$PROJECT_DIR$/courier-ms" />
     <file type="web" url="file://$PROJECT_DIR$/discovery-service" />
     <file type="web" url="file://$PROJECT_DIR$/gateway" />
     <file type="web" url="file://$PROJECT_DIR$/order-ms" />

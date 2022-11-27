@@ -15,6 +15,7 @@ public class SpringCloudGatewayRouting {
                 .route(r -> r.path("/api/order/**").uri("lb://ORDER-MS"))
                 .route(r -> r.path("/api/user/**").uri("lb://USER-MS"))
                 .route(r -> r.path("/api/auth/**").uri("lb://AUTH-MS"))
+                .route(r -> r.path("/api/courier/**").uri("lb://COURIER-MS"))
                 .build();
     }
 }
