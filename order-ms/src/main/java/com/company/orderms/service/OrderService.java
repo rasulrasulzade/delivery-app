@@ -13,7 +13,7 @@ public interface OrderService {
 
     OrderDto getOrderById(UUID id);
 
-    OrderDto updateOrder(UUID id, UpdateDtoRequest request);
+    void updateOrder(UUID id, UpdateDtoRequest request);
 
     OrderListDto getOrders(Optional<UUID> userId, Optional<UUID> courierId, Optional<Integer> page, Optional<Integer> pageSize, Optional<String> direction, Optional<String> sortBy);
 }

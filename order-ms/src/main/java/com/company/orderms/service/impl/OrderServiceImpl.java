@@ -39,14 +39,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto updateOrder(UUID id, UpdateDtoRequest request) {
+    public void updateOrder(UUID id, UpdateDtoRequest request) {
         OrderEntity ent = orderRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Order not found with id: " + id, HttpStatus.NOT_FOUND));
         if (request.getStatus() != null)
             ent.setStatus(request.getStatus());
         if (request.getCourierId() != null)
             ent.setCourierId(request.getCourierId());
-        return mapStruct.mapToDto(orderRepository.save(ent));
+        if (request.getDestination() != null) {
+            ent.setDestinationLat(request.getDestination().getLatitude());
+            ent.setDestinationLong(request.getDestination().getLongitude());
+        }
+        orderRepository.save(ent);
     }
 
     @Override

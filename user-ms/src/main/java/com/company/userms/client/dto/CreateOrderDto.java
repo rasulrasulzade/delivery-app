@@ -1,6 +1,5 @@
-package com.company.orderms.dto;
+package com.company.userms.client.dto;
 
-import com.company.orderms.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,8 +11,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UpdateDtoRequest {
-    private OrderStatus status;
-    private UUID courierId;
+public class CreateOrderDto {
+    private String comment;
+    private LocationDto pickup;
     private LocationDto destination;
+    private UUID userId;
 }

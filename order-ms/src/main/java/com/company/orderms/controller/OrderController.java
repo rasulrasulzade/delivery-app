@@ -3,7 +3,6 @@ package com.company.orderms.controller;
 import com.company.orderms.dto.CreateOrderDto;
 import com.company.orderms.dto.OrderDto;
 import com.company.orderms.dto.OrderListDto;
-import com.company.orderms.dto.UpdateDtoRequest;
 import com.company.orderms.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,11 +26,6 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> getOrderById(@PathVariable UUID id) {
         return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<OrderDto> updateOrder(@PathVariable UUID id, @RequestBody UpdateDtoRequest request) {
-        return new ResponseEntity<>(orderService.updateOrder(id, request), HttpStatus.OK);
     }
 
     @GetMapping

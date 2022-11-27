@@ -1,6 +1,6 @@
-package com.company.adminms.service.impl;
+package com.company.userms.service.impl;
 
-import com.company.adminms.dto.OrderQueueDto;
+import com.company.userms.client.dto.OrderQueueDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class QueueProducer {
+public class OrderQueueProducer {
     private final ObjectMapper objectMapper;
-
-    public static final String QUEUE = "order_queue";
     public static final String EXCHANGE = "order_exchange";
     public static final String ROUTING_KEY = "order_key";
 
@@ -29,7 +27,6 @@ public class QueueProducer {
         }
         return str;
     }
-
     public void insertOrder(OrderQueueDto dto) {
         rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, parseString(dto));
     }

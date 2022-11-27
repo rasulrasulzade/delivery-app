@@ -20,6 +20,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.11'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.5'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-dependencies', version: '2021.0.5', ext: 'pom'
+    implementation group: 'org.springframework.amqp', name: 'spring-rabbit', version: '2.4.7'
 }
 
 dependencyManagement {

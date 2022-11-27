@@ -1,4 +1,4 @@
-package com.company.adminms.dto;
+package com.company.userms.client.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDto {
-    private String text;
+public class LocationDto {
+    private Double latitude;
+    private Double longitude;
 }
