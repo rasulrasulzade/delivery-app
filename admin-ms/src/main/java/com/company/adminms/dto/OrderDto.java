@@ -5,16 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderQueueDto implements Serializable {
-    private static final long serialVersionUID = -9125879548678917038L;
+public class OrderDto {
     private UUID id;
-    private UUID courierId;
+    private String comment;
+    private LocationDto pickup;
+    private LocationDto destination;
     private OrderStatus status;
+    private UUID userId;
+    private UUID courierId;
 }

@@ -1,7 +1,9 @@
 package com.company.authms.service;
 
+import com.company.authms.entity.CourierInfoEntity;
 import com.company.authms.entity.RoleEntity;
 import com.company.authms.entity.UserEntity;
+import com.company.authms.enums.CourierStatus;
 import com.company.authms.enums.RoleName;
 import com.company.authms.exception.CustomException;
 import com.company.authms.model.*;
@@ -18,7 +20,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -115,6 +116,9 @@ public class UserServiceImpl implements UserService {
         }
         RoleEntity roleEnt = getRole(request.getRoleName());
         userEnt.addRole(roleEnt);
+        if(RoleName.COURIER.equals(RoleName.valueOf(request.getRoleName()))){
+            userEnt.setCourierInfo(new CourierInfoEntity(UUID.randomUUID(), CourierStatus.OFFLINE, userEnt));
+        }
         userRepository.save(userEnt);
         return UserInfo.builder()
                 .id(userEnt.getId())
@@ -124,6 +128,9 @@ public class UserServiceImpl implements UserService {
                 .roles(userEnt.getRoles().stream()
                         .map(RoleEntity::getName)
                         .collect(Collectors.toSet()))
+                .courierInfo(Optional.ofNullable(userEnt.getCourierInfo())
+                        .map(ci -> new CourierInfo(ci.getId(), ci.getStatus()))
+                        .orElse(null))
                 .build();
     }
 }

@@ -21,6 +21,11 @@ public class UserEntity implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "courier_info", referencedColumnName = "id")
+    private CourierInfoEntity courierInfo;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

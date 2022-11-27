@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/orders/{orderId}")
-    public OrderDto createUserOrder(@PathVariable UUID orderId) {
+    public OrderDto getUserOrder(@PathVariable UUID orderId) {
         return userService.getOrderByOrderId(orderId);
     }
 
