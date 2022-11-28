@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, jwtUtil.generateAccessTokenFromUser(user))
-                .header("X-refresh-token", "Bearer " + jwtUtil.generateRefreshTokenFromUser(user))
+                .header("X-refresh-token", jwtUtil.generateRefreshTokenFromUser(user))
                 .body(authResponse);
     }
 
