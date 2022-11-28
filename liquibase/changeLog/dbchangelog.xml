@@ -15,12 +15,6 @@
 
     <changeSet id="2022-11-24--sql-02" author="Rasul">
         <sql>
-            CREATE SCHEMA delivery_app
-        </sql>
-    </changeSet>
-
-    <changeSet id="2022-11-24--sql-03" author="Rasul">
-        <sql>
             CREATE SCHEMA order_schema
         </sql>
     </changeSet>

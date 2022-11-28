@@ -1,4 +1,4 @@
-package com.company.courierms.client;
+package com.company.courierms.controller;
 
 import com.company.courierms.dto.ChangeOrderStatusDto;
 import com.company.courierms.dto.OrderDto;

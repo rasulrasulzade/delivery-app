@@ -23,7 +23,7 @@ public class UserEntity implements UserDetails {
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "courier_info", referencedColumnName = "id")
+    @JoinColumn(name = "courier_info_id", referencedColumnName = "id")
     private CourierInfoEntity courierInfo;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

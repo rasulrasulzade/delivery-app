@@ -22,6 +22,7 @@
             <column name="last_name" type="varchar(255)"/>
             <column name="email" type="varchar(255)"/>
             <column name="password" type="varchar(255)"/>
+            <column name="courier_info_id" type="UUID"/>
         </createTable>
 
     </changeSet>
@@ -34,7 +35,34 @@
     </changeSet>
 
     <changeSet id="2022-11-25--sql-04" author="Rasul">
+        <createTable schemaName="auth"
+                     tableName="courier_info">
+            <column name="id" type="UUID">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="status" type="int"/>
+        </createTable>
+    </changeSet>
 
+    <changeSet id="2022-11-24--sql-05" author="Rasul">
+        <addPrimaryKey columnNames="id"
+                       constraintName="pk_courier_info"
+                       schemaName="auth"
+                       tableName="courier_info"/>
+    </changeSet>
+
+    <changeSet id="2022-11-26--sql-06" author="Rasul">
+        <addForeignKeyConstraint baseColumnNames="courier_info_id"
+                                 baseTableName="user"
+                                 baseTableSchemaName="auth"
+                                 constraintName="fk_courier_info_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="courier_info"
+                                 referencedTableSchemaName="auth"/>
+
+    </changeSet>
+
+    <changeSet id="2022-11-25--sql-07" author="Rasul">
         <createTable schemaName="auth"
                      tableName="role">
             <column name="id" type="UUID">
@@ -44,14 +72,14 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2022-11-24--sql-05" author="Rasul">
+    <changeSet id="2022-11-24--sql-08" author="Rasul">
         <addPrimaryKey columnNames="id"
                        constraintName="pk_role"
                        schemaName="auth"
                        tableName="role"/>
     </changeSet>
 
-    <changeSet id="2022-11-26--sql-06" author="Rasul">
+    <changeSet id="2022-11-26--sql-09" author="Rasul">
         <createTable schemaName="auth"
                      tableName="user_role">
             <column name="user_id" type="UUID">
@@ -63,7 +91,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2022-11-26--sql-07" author="Rasul">
+    <changeSet id="2022-11-26--sql-10" author="Rasul">
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="user_role"
                                  baseTableSchemaName="auth"
@@ -74,7 +102,7 @@
 
     </changeSet>
 
-    <changeSet id="2022-11-26--sql-08" author="Rasul">
+    <changeSet id="2022-11-26--sql-11" author="Rasul">
         <addForeignKeyConstraint baseColumnNames="role_id"
                                  baseTableName="user_role"
                                  baseTableSchemaName="auth"
@@ -85,7 +113,7 @@
 
     </changeSet>
 
-    <changeSet id="2022-11-26--sql-09" author="Rasul">
+    <changeSet id="2022-11-26--sql-12" author="Rasul">
         <sqlFile dbms="postgresql"
                  encoding="UTF-8"
                  endDelimiter="\nGO"

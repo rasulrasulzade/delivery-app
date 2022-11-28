@@ -11,7 +11,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: com.company.orderms.config.CustomPostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
         default_schema: order_schema
         show_sql: true
 
