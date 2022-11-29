@@ -6,7 +6,7 @@ import io.jsonwebtoken.Jwts;
 import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
-import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -15,38 +15,54 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
-public class AuthGatewayFilter implements GatewayFilter {
-
+public class AuthFilterFactory extends AbstractGatewayFilterFactory<AuthFilterFactory.Config> {
     @Value("${token.secret}")
     private String secret;
 
-    private String role = "ROLE_USER";
+    public AuthFilterFactory() {
+        super(Config.class);
+    }
 
-    public AuthGatewayFilter setRole(String role) {
-        this.role = role;
-        return this;
+    public static class Config {
+        private String role;
+
+        public Config setRole(String role) {
+            this.role = role;
+            return this;
+        }
+
+        public String getRole() {
+            return this.role;
+        }
     }
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        ServerHttpRequest request = exchange.getRequest();
+    public Config newConfig() {
+        return new Config();
+    }
 
-        if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-            return onError(exchange, "No authorization error", HttpStatus.UNAUTHORIZED);
-        }
 
-        String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-        String jwt = authorizationHeader.replace("Bearer", "");
+    @Override
+    public GatewayFilter apply(Config config) {
+        return ((exchange, chain) -> {
+            ServerHttpRequest request = exchange.getRequest();
 
-        if (!isJwtValid(jwt)) {
-            return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
-        }
+            if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                return onError(exchange, "No authorization error", HttpStatus.UNAUTHORIZED);
+            }
 
-        if(!getRolesFromToken(jwt).contains(role)){
-            return onError(exchange, "No permission", HttpStatus.FORBIDDEN);
-        }
+            String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+            String jwt = authorizationHeader.replace("Bearer", "");
 
-        return chain.filter(exchange);
+            if (!isJwtValid(jwt)) {
+                return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
+            }
+
+            if(!getRolesFromToken(jwt).contains(config.getRole())){
+                return onError(exchange, "No permission", HttpStatus.FORBIDDEN);
+            }
+            return chain.filter(exchange);
+        });
     }
 
     private Mono<Void> onError(ServerWebExchange exchange, String error, HttpStatus status) {
