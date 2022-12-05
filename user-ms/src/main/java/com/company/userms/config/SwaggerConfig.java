@@ -1,4 +1,4 @@
-package com.company.orderms.config;
+package com.company.userms.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -43,8 +43,9 @@ public class SwaggerConfig {
     }
 
     private Info apiInfo() {
-        return new Info().title("Order ms")
+        return new Info().title("User ms")
                 .description("Live Code System Swagger Open API")
                 .version("v1.0.0");
     }
 }
+

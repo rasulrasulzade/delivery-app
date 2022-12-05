@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/public/v1")
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;

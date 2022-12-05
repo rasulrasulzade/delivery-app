@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
-@FeignClient(value = "OrderClient", url = "http://localhost:8888/api/order/v1/orders")
+@FeignClient(value = "OrderClient", url = "http://localhost:8888/api/order/public/v1/orders")
 public interface OrderClient {
 
     @GetMapping("/{orderId}")

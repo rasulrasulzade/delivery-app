@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/couriers")
+@RequestMapping("/public/v1/couriers")
 public class CourierController {
     private final CourierService courierService;
 

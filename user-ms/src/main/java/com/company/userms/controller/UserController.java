@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/users")
+@RequestMapping("/public/v1/users")
 public class UserController {
     private final UserService userService;
 

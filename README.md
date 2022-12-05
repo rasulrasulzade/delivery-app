@@ -1,3 +1,14 @@
+Used stack: <br/>
+Java 11 <br/>
+Spring Boot <br/>
+Spring Data Jpa <br/>
+Spring Security <br/>
+Spring Cloud <br/>
+PostgreSQL <br/>
+Gradle <br/>
+Docker <br/>
+RabbitMQ <br/>
+
 docker-compose -f stack.yml up
 
 /api/order/swagger-ui/index.html <br/>

@@ -14,23 +14,27 @@ public class SpringCloudGatewayRouting {
     @Bean
     public RouteLocator configureRoute(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(r -> r.path("/api/admin/**").filters(f ->
+                .route(r -> r.path("/api/admin/public/**").filters(f ->
                                 f.rewritePath("/service(?<segment>/?.*)", "$\\{segment}")
                                         .filter(authFilter.apply(authFilter.newConfig().setRole("ROLE_ADMIN"))))
                         .uri("lb://ADMIN-MS"))
-                .route(r -> (r.path("/api/order/**").filters(f ->
+                .route(r -> (r.path("/api/admin/**")).uri("lb://ADMIN-MS"))
+                .route(r -> (r.path("/api/order/public/**").filters(f ->
                         f.rewritePath("/service(?<segment>/?.*)", "$\\{segment}")
                                 .filter(authFilter.apply(authFilter.newConfig().setRole("ROLE_USER")))))
                         .uri("lb://ORDER-MS"))
-                .route(r -> r.path("/api/user/**").filters(f ->
+                .route(r -> (r.path("/api/order/**")).uri("lb://ORDER-MS"))
+                .route(r -> r.path("/api/user/public/**").filters(f ->
                         f.rewritePath("/service(?<segment>/?.*)", "$\\{segment}")
                                 .filter(authFilter.apply(authFilter.newConfig().setRole("ROLE_USER"))))
                         .uri("lb://USER-MS"))
+                .route(r -> (r.path("/api/user/**")).uri("lb://USER-MS"))
                 .route(r -> r.path("/api/auth/**").uri("lb://AUTH-MS"))
-                .route(r -> r.path("/api/courier/**").filters(f ->
+                .route(r -> r.path("/api/courier/public/**").filters(f ->
                         f.rewritePath("/service(?<segment>/?.*)", "$\\{segment}")
                                 .filter(authFilter.apply(authFilter.newConfig().setRole("ROLE_COURIER"))))
                         .uri("lb://COURIER-MS"))
+                .route(r -> (r.path("/api/courier/**")).uri("lb://COURIER-MS"))
                 .build();
     }
 }
